@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="fabric.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+<style>
+body{
+    display: grid;
+    place-items: center;
+}
+.inst{
+    background-color: rgb(206, 226, 189); 
+    color : #555;
+    padding:20px;
+    
+}
+
+.btn1{
+    display: flex;
+    padding-top: 10px;
+}
+
+button{
+    padding-left: 10px;
+    margin-left: 10px;
+
+}
+
+.can{
+    border: black solid;
+}
+</style>
+
+<div class="inst">
+<h1>Refraction of light</h1>
+<p><b>Step 1 :</b> Choose a refractive index (&#956;).</p>
+<p><b>Step 2 :</b> Choose a  angle.</p>
+<p><b>Step 3 :</b> Choose another refractive index.</p>
+<p><b>Step 4 :</b> Choose the same angle and see how refrection depending on refractve index.</p>
+
+<p> * Also you can see relation between angle of incidence and angle of refraction.</p>
+</div>
+
+<canvas class="can" id="c" width="580" height="230"></canvas>
+<div class="btn1">
+<p><b>Refractive index :- </b></p>
+<button onclick="txt(1.5)" id="asgn_v2" value="1.5">&#956; &#62; 1 </button>
+<button onclick="txt(0.5)" id="asgn_v2" value="0.5">&#956; &#60; 1</button>
+<br>
+</div>
+<br>
+<div class="btn1">
+<p><b>Angles :- </b></p>
+<button id="a1" onclick="a_all(-30,-20,200,10,mu)" o>30 deg</button>
+<button id="a2" onclick="a_all(-45,-25,170,36,mu)">45 deg</button>
+<button id="a3" onclick="a_all(-60,-30,152,68,mu)">60 deg</button>
+<button onclick="a_90()">90 deg</button>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+    var canvas = new fabric.Canvas('c');
+    
+    
+    var rect = new fabric.Rect({
+        left: 175,
+        top: 130,
+        fill: '#80c5de',
+        width : 250,
+        height : 100,
+        opacity : .5
+        
+    });
+
+    var normal = new fabric.Line( [ 100, 180, 100, 80],{
+    left : 280,
+    stroke: '#555',
+    strokeDashArray: [5, 5],
+    flipY : true,
+    selectable : false,
+    strokeWidth : .5,
+    // centeredRotation : false,
+    // centeredScaling : false
+} );
+
+    var air = new fabric.Textbox('Air/vaccume(mu = 1)', {
+            width:180,
+            fontSize : 20,
+            top:50,
+            left:345
+        });
+
+rect.set('selectable', false);
+
+function a_90(){
+    var line = new fabric.Line( [ 100, 230, 100, 50],{
+    left : 280,
+    stroke: '#03A87C',
+    flipY : true,
+    selectable : false,
+    strokeWidth : 2,
+    // centeredRotation : false,
+    // centeredScaling : false
+} );
+canvas.add(line);
+}
+
+
+
+function txt(miu){
+
+    var text = new fabric.Textbox('mu = '+ miu, {
+            width:75,
+            fontSize : 20,
+            top:135,
+            left:345
+        });
+    canvas.add(text)
+    if(miu == 1.5){
+        mu = miu*0.5;
+    }
+    else if(miu == 0.5){
+        mu = miu*5.3;
+    }
+    
+    
+
+}
+function a_all(i,r,lft1,tp,miu){
+    var line2 = new fabric.Line( [ 20, 10, 10, 155],{
+    top : tp,
+    left : lft1,
+    stroke: '#03A87C',
+    angle : i,
+    flipY : true,
+    selectable : false,
+    strokeWidth : 2,
+    centeredRotation : false,
+    centeredScaling : false
+} );
+    var line3 = new fabric.Line( [ 20, 130, 10, 240],{
+    
+    left : 280,
+    stroke: 'black',
+    angle : mu*r,
+    flipY : true,
+    selectable : false,
+    strokeWidth : 2,
+    centeredRotation : false,
+    centeredScaling : false
+} );
+canvas.add(line2,line3);
+}
+
+
+function remv(){
+    document.getElementById("a1").removeEventListener("mousemove",a_all)
+}
+
+
+
+
+
+
+
+canvas.add(rect,normal,air)
+
+
+</script>
+</body>
+</html>
