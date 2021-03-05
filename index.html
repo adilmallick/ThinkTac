@@ -61,7 +61,8 @@ button{
 <button id="a3" onclick="a_all(-60,-30,152,68,mu)">60 deg</button>
 <button onclick="a_90()">90 deg</button>
 </div>
-
+<br>
+<button type="submit" onClick="refreshPage()">Refresh</button>
 </div>
 
 
@@ -167,15 +168,9 @@ canvas.add(line2,line3);
 }
 
 
-function remv(){
-    document.getElementById("a1").removeEventListener("mousemove",a_all)
-}
-
-
-
-
-
-
+function refreshPage(){
+    window.location.reload();
+} 
 
 canvas.add(rect,normal,air)
 
